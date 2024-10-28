@@ -4,6 +4,10 @@
 //music by:
 //light_music https://pixabay.com/users/light_music-40074088/
 //relaxingtime https://pixabay.com/users/relaxingtime-17430502/
+
+//levelscode at line 304
+//rendering at line 190
+//findtile at 605
 const c = document.getElementById("canvas").getContext("2d");
 
 let frames = 0;
@@ -139,8 +143,9 @@ function draw() {
 
   //sprite player, have to write after stars and bg
 
-  if (ldm % 2 == 0) {
-    c.drawImage(sky, 0, 0, canvas.width, canvas.height);
+  if ((ldm % 2 == 0)) {
+    if (cube != -1) {c.drawImage(sky, 0, 0, canvas.width, canvas.height);}
+    
 
     if (cube == 0) {
       c.drawImage(partition, player.x, player.y, 32, 32);
@@ -149,6 +154,7 @@ function draw() {
       c.drawImage(mario, player.x, player.y, 32, 32);
     }
     else if (cube == -1) {
+      c.drawImage(poland,0,0,canvas.width,canvas.height);
       c.drawImage(poland, player.x, player.y, 32, 32)
     }
     else if (cube == 2) { c.drawImage(ashrit, player.x, player.y, 32, 32) }
@@ -224,6 +230,12 @@ function draw() {
       if (currentlevel[row][col] === '6') {
         c.drawImage(portal, col * 32, row * 32, 32, 32)
       }
+      if (currentlevel[row][col] === '7') {
+        c.drawImage(portal, col * 32, row * 32, 32, 32);
+      }
+      if (currentlevel[row][col] === '8') {
+        c.drawImage(portal, col * 32, row * 32, 32, 32);
+      }
     }
   }
 
@@ -232,10 +244,18 @@ function draw() {
 function main() {
   input(player.x, player.y);
   cubeselect();
+  if (levelnum != 8) {
   draw();
+  console.log(levelnum)
+  }
+  if (levelnum == 8) {
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  c.font = '100px Arial';
+  c.fillStyle = 'red'
+  c.fillText('You Win!',0,256,canvas.width,canvas.height)
+  }
   gravity(player);
   requestAnimationFrame(main);
-  console.log(levelnum);
   if (levelnum == 1) {
     currentlevel = parse(level);
   }
@@ -255,7 +275,7 @@ function main() {
   if (levelnum == 6) {
     currentlevel = parse(level6)
   }
-  
+  if (levelnum != 8) {
   var date = Date.now();
   //if (times[0] <= now-1000) {console.log('should shift');}
   while (times.length > 0 && times[0] <= date - 1000) {times.shift();}
@@ -263,6 +283,7 @@ function main() {
 
   fps = times.length;	
   c.fillText(fps,250,50);
+  }
   // console.log(findtile(player.x,player.y))
 
   // var newtime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
@@ -286,6 +307,9 @@ window.onload = function() {
   if (levelnum == 5) {
     currentlevel = parse(level5);
   }
+  if (levelnum == 6) {
+    currentlevel = parse(level6);
+  }
   // console.log(levelnum)
   main();
 
@@ -302,8 +326,8 @@ const level0 = ``
 
 const level =
 `1111111111111111111
+1200000000000000011
 1000000000000000011
-1002000000000000011
 1001000000000000011
 1000000000000000011
 101000ss00000111011
@@ -399,28 +423,28 @@ const level5 =
 1110000000000000001
 1000000000000000111
 1110000000000000001
-1000000000000006111
-111n0000000000011111
+1000000000000007111
+1110000000011111111
 `
 const level6 = 
-`1111111111111111111
-1000000000000000001
-1000000000000000001
-1000000000000000071
-1000000000000000111
-1110000000000000001
-1000000000000000111
-1110000000000000001
-1000000000000000111
-1110000000000000001
-1000000000000000111
-1110000000000000001
-1000000000000000111
-1110000000000000001
-1000000000000000111
-1110000000000000001
-1000000000000000001
-1111111111111111111
+`111111111111111111
+100000000000000001
+100000000000000081
+100000000000000011
+100000000000000001
+111000000000000001
+100000000000000011
+111000000000000001
+100000000000000001
+111000000000000001
+100000000000000011
+111000000000000001
+100000000000000001
+111000000000000001
+100000000000000011
+111000000000000001
+100000000000000001
+111111111111111111
 `
 
 function parse(lvl) {
@@ -619,6 +643,10 @@ function gravity(obj) {
   }
   if (findtile(obj.x, obj.y) === "7" || findtile(obj.x + 32, obj.y) === '7') {
     levelnum = 6;
+  }
+  if (findtile(obj.x, obj.y) === "8" || findtile(obj.x + 32, obj.y) === '8') {
+    levelnum = 8;
+    console.log(levelnum)
   }
 
   //1
