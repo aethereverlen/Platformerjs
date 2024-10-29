@@ -14,6 +14,8 @@ let frames = 0;
 let times= [];
 let fps;
 
+let firstinput = 'hello';
+
 var partition = new Image();
 partition.src = "bananatetris.png";
 
@@ -63,8 +65,8 @@ let ldm = 0;
 let cube = 0;
 
 var go = 0;
-const start = new Date();
-let starttime = start.getTime();
+// const start = new Date();
+// let starttime = start.getTime();
 
 function playsound(soundfile) {
   var audio = new Audio(soundfile);
@@ -165,25 +167,25 @@ function draw() {
   }
 
   //timer
-  var now = new Date();
-  var currenttime = now.getTime();
-  c.font = "10px Arial";
-  var elapsed = currenttime - starttime;
-  c.fillText(elapsed / 1000, 50, 50);
-		//fps
+  // var now = new Date();
+  // var currenttime = now.getTime();
+  // c.font = "10px Arial";
+  // var elapsed = currenttime - starttime;
+  // c.fillText(elapsed / 1000, 50, 50);
+	// 	//fps
 		
-  if (elapsed / 1000 > music1length) {
-    if (musnum == 0) {
-      if (mvol == 0) { playsound('music2.mp3') }
-    }
-  }
-  if (rickroll == 1) {
-    if (elapsed / 1000 == 275) {
-      playsound('rickroll.mp3')
-    }
-  }
+  // if (elapsed / 1000 > music1length) {
+  //   if (musnum == 0) {
+  //     if (mvol == 0) { playsound('music2.mp3') }
+  //   }
+  // }
+  // if (rickroll == 1) {
+  //   if (elapsed / 1000 == 275) {
+  //     playsound('rickroll.mp3')
+  //   }
+  // }
   
-  if (elapsed / 1000 > music2length) { if (musnum == 0) { if (mvol == 0) { playsound('music1.mp3') } } }
+  // if (elapsed / 1000 > music2length) { if (musnum == 0) { if (mvol == 0) { playsound('music1.mp3') } } }
   // triangle(10,10,0,0,20,20)
   //player
   //  c.fillStyle = "teal";
@@ -242,6 +244,16 @@ function draw() {
 }
 //draws f
 function main() {
+
+  if (firstinput == 0) {
+    console.log('hello')
+    console.log(keysDown[0])
+    console.log(keysDown)
+    var time = new Date();
+    starttime = time.getTime();
+    firstinput = 1;
+  }
+  
   input(player.x, player.y);
   cubeselect();
   if (levelnum != 8) {
@@ -283,6 +295,12 @@ function main() {
 
   fps = times.length;	
   c.fillText(fps,250,50);
+
+  var now = new Date();
+  var currenttime = now.getTime();
+  c.font = "10px Arial";
+  var elapsed = currenttime - starttime;
+  c.fillText(elapsed / 1000, 50, 50);
   }
   // console.log(findtile(player.x,player.y))
 
@@ -326,8 +344,8 @@ const level0 = ``
 
 const level =
 `1111111111111111111
-1200000000000000011
 1000000000000000011
+1002000000000000011
 1001000000000000011
 1000000000000000011
 101000ss00000111011
@@ -485,6 +503,9 @@ function input(x, y) {
   if (findtile(x, y) !== "s" && findtile(x, y) !== 's' && findtile(x, y) !== 's') {
     //code for a
     if ((65 in keysDown) || (37 in keysDown)) {
+      if (firstinput != 1) {
+        firstinput = 0
+      }
       if (music == 0) {
         musnum = Math.round(Math.random());
         if (musnum == 0) {
@@ -509,6 +530,9 @@ function input(x, y) {
     }
     //code for d
     if ((68 in keysDown) || (39 in keysDown)) {
+      if (firstinput != 1) {
+        firstinput = 0
+      }
       if (music == 0) {
         musnum = Math.round(Math.random());
         if (musnum == 0) {
@@ -557,6 +581,9 @@ function input(x, y) {
     }
     //code for w
     if ((87 in keysDown && player.yke === 0) || (38 in keysDown && player.yke === 0)) {
+      if (firstinput != 1) {
+        firstinput = 0
+      }
       if (music == 0) {
         musnum = Math.round(Math.random());
         if (musnum == 0) {
