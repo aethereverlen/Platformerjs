@@ -10,11 +10,16 @@
 //findtile at 605
 const c = document.getElementById("canvas").getContext("2d");
 
+let portalslist = [];
+
 let frames = 0;
 let times= [];
 let fps;
 
 let firstinput = 'hello';
+
+var elapsed;
+var currenttime;
 
 var partition = new Image();
 partition.src = "bananatetris.png";
@@ -67,6 +72,10 @@ let cube = 0;
 var go = 0;
 // const start = new Date();
 // let starttime = start.getTime();
+var music1 = new Audio('music1');
+var music2 = new Audio('music2');
+var jump = new Audio('jump.mp3');
+var yeyey = new Audio('yeyey.mp3');
 
 function playsound(soundfile) {
   var audio = new Audio(soundfile);
@@ -258,13 +267,13 @@ function main() {
   cubeselect();
   if (levelnum != 8) {
   draw();
-  console.log(levelnum)
+  //console.log(levelnum)
   }
   if (levelnum == 8) {
   c.clearRect(0, 0, canvas.width, canvas.height);
   c.font = '100px Arial';
   c.fillStyle = 'red'
-  c.fillText('You Win!',0,256,canvas.width,canvas.height)
+  c.fillText('You Win!',100,300,canvas.width,canvas.height)
   }
   gravity(player);
   requestAnimationFrame(main);
@@ -273,6 +282,7 @@ function main() {
   }
   if (levelnum == 2) {
     currentlevel = parse(level2);
+    
   }
   if (levelnum == 3) {
     currentlevel = parse(level3);
@@ -296,12 +306,30 @@ function main() {
   fps = times.length;	
   c.fillText(fps,250,50);
 
-  var now = new Date();
-  var currenttime = now.getTime();
+  now = new Date();
+  currenttime = now.getTime();
   c.font = "10px Arial";
-  var elapsed = currenttime - starttime;
+  elapsed = currenttime - starttime;
   c.fillText(elapsed / 1000, 50, 50);
   }
+
+  if (levelnum == 8) {
+    c.font = '20px Arial';
+    c.fillStyle = 'white';
+    c.fillText(elapsed/1000,50,50)
+    console.log(portalslist)
+    console.log(portalslist.length)
+    if (portalslist.length != 6) {
+      c.fillText('cheat detected',50,500)
+    }
+  }
+
+  // var now = new Date();
+  // var currenttime = now.getTime();
+  currenttime = currenttime;
+  elapsed = elapsed;
+ // console.log(elapsed);
+  // console.log(currenttime);
   // console.log(findtile(player.x,player.y))
 
   // var newtime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
@@ -655,25 +683,33 @@ function gravity(obj) {
   // }
   if (findtile(obj.x, obj.y) === "2") {
     //c.clearRect(0, 0, canvas.width, canvas.height);
+    portalslist.push('1');
     levelnum = 2;
   }
   if (findtile(obj.x, obj.y) === "3" || findtile(obj.x + 32, obj.y) === '3') {
     //c.clearRect(0, 0, canvas.width, canvas.height);
+    portalslist.push('2');
     levelnum = 3;
   }
   if (findtile(obj.x, obj.y) === "5" || findtile(obj.x + 32, obj.y) === '5') {
     //c.clearRect(0, 0, canvas.width, canvas.height);
+    portalslist.push('3');
     levelnum = 4;
   }
   if (findtile(obj.x, obj.y) === "6" || findtile(obj.x + 32, obj.y) === '6') {
     levelnum = 5;
+    portalslist.push('4');
   }
   if (findtile(obj.x, obj.y) === "7" || findtile(obj.x + 32, obj.y) === '7') {
     levelnum = 6;
+    portalslist.push('5');
   }
   if (findtile(obj.x, obj.y) === "8" || findtile(obj.x + 32, obj.y) === '8') {
+    if (portalslist.length == 5) {
+    portalslist.push('6');
+    }
     levelnum = 8;
-    console.log(levelnum)
+ //   console.log(levelnum)
   }
 
   //1
