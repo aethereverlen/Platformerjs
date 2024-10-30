@@ -344,14 +344,14 @@ function main() {
 
   if (levelnum != 8) {
   var totaslist = [];
-  console.log(keysDown);
+  //console.log(keysDown);
   for (var key in keysDown) {
     if (keysDown.hasOwnProperty(key)) {
       totaslist.push(key)
     }
   }
   taslist.push(totaslist);
-  console.log(taslist[taslist.length-1])
+  //console.log(taslist[taslist.length-1])
   }
   
   // var newtime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
