@@ -12,6 +12,9 @@ const c = document.getElementById("canvas").getContext("2d");
 
 let portalslist = [];
 
+let taslist = [];
+let printedonce = 0;
+
 let frames = 0;
 let times= [];
 let fps;
@@ -267,6 +270,7 @@ function main() {
   cubeselect();
   if (levelnum != 8) {
   draw();
+  
   //console.log(levelnum)
   }
   if (levelnum == 8) {
@@ -274,6 +278,14 @@ function main() {
   c.font = '100px Arial';
   c.fillStyle = 'red'
   c.fillText('You Win!',100,300,canvas.width,canvas.height)
+  if (printedonce == 0) {
+  console.log(taslist);
+  for (let i = 0; i < taslist.length; i++) {
+    console.log(taslist[i])
+    console.log(i)
+  }
+  printedonce = 1;
+  }
   }
   gravity(player);
   requestAnimationFrame(main);
@@ -317,8 +329,6 @@ function main() {
     c.font = '20px Arial';
     c.fillStyle = 'white';
     c.fillText(elapsed/1000,50,50)
-    console.log(portalslist)
-    console.log(portalslist.length)
     if (portalslist.length != 6) {
       c.fillText('cheat detected',50,500)
     }
@@ -332,6 +342,18 @@ function main() {
   // console.log(currenttime);
   // console.log(findtile(player.x,player.y))
 
+  if (levelnum != 8) {
+  var totaslist = [];
+  console.log(keysDown);
+  for (var key in keysDown) {
+    if (keysDown.hasOwnProperty(key)) {
+      totaslist.push(key)
+    }
+  }
+  taslist.push(totaslist);
+  console.log(taslist[taslist.length-1])
+  }
+  
   // var newtime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
 
 }
