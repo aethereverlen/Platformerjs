@@ -342,7 +342,7 @@ function main() {
   currenttime = now.getTime();
   c.font = "10px Arial";
   elapsed = currenttime - starttime;
-  c.fillText(elapsed / 1000, 50, 50);
+  
   }
 
   if (levelnum == 8) {
@@ -394,21 +394,25 @@ function main() {
       //console.log(coordslist)
       //console.log(coordslist[replayframe])
       //console.log(currentlist)
-      if (typeof currentlist[0] !== 'undefined') {
+      if (currentlist.length != 0) {
       console.log(typeof currentlist[0])
       player.x = currentlist[0]
       player.y = currentlist[1]
       levelnum = currentlist[2]
+      elapsed = currentlist[3]
       }
       replayframe += 1;
       
     // }
   }
+  if (levelnum != 8) {
+    c.fillText(elapsed / 1000, 50, 50);
+  }
   
   // var now = new Date();
   // var currenttime = now.getTime();
-  currenttime = currenttime;
-  elapsed = elapsed;
+ // currenttime = currenttime;
+  //elapsed = elapsed;
  // console.log(elapsed);
   // console.log(currenttime);
   // console.log(findtile(player.x,player.y))
@@ -421,7 +425,7 @@ function main() {
     if (keysDown.hasOwnProperty(key)) {
       totaslist.push(key)
     }
-  coordslist.push([player.x,player.y,levelnum])
+  coordslist.push([player.x,player.y,levelnum,elapsed])
   //console.log(coordslist[coordslist.length-1])
   }
   taslist.push(totaslist);
