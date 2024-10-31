@@ -13,7 +13,13 @@ const c = document.getElementById("canvas").getContext("2d");
 let portalslist = [];
 
 let taslist = [];
+let coordslist = [];
 let printedonce = 0;
+
+let totalframes = 0;
+
+let replaystarted = 0;
+let replayframe = 0;
 
 let frames = 0;
 let times= [];
@@ -281,12 +287,23 @@ function main() {
   if (printedonce == 0) {
   console.log(taslist);
   for (let i = 0; i < taslist.length; i++) {
-    console.log(taslist[i])
-    console.log(i)
+   // console.log(taslist[i])
+    //console.log(i)
   }
   printedonce = 1;
   }
   }
+  if (levelnum != 0) {
+    c.fillStyle = 'white';
+    c.font = '10px Arial'
+    if (musnum == 0) {
+      c.fillText('♪ - Haggstrom - C418', 400,50)
+    }
+    if (musnum == 1) {
+      c.fillText('♪ - Megalith - Meganeko', 400,50)
+    }
+  }
+
   gravity(player);
   requestAnimationFrame(main);
   if (levelnum == 1) {
@@ -309,6 +326,9 @@ function main() {
   if (levelnum == 6) {
     currentlevel = parse(level6)
   }
+  if (levelnum == 7) {
+    currentlevel = parse(level7);
+  }
   if (levelnum != 8) {
   var date = Date.now();
   //if (times[0] <= now-1000) {console.log('should shift');}
@@ -329,11 +349,62 @@ function main() {
     c.font = '20px Arial';
     c.fillStyle = 'white';
     c.fillText(elapsed/1000,50,50)
+    c.fillText(totalframes, 50, 100)
     if (portalslist.length != 6) {
       c.fillText('cheat detected',50,500)
+  }
+  if (82 in keysDown && replaystarted == 0 && false) { 
+    levelnum = 1;
+    player.x = 256;
+    player.y = 256;
+    replaystarted = 1;
+  }
+  if (82 in keysDown && replaystarted == 0) {
+    levelnum = 1;
+    player.x = 256;
+    player.y = 256;
+    replaystarted = 1;
+  }
+    
+    // if (replaystarted == 1) {
+    //   keysDown = {}
+    //   for (item in taslist[replayframe]) {
+    //     let currentlist = taslist[replayframe]
+    //     keysDown[item] = true
+    //   }
+    //   console.log(keysDown)
+    //   replayframe += 1;
+    // }
+    
+  }
+  if (replaystarted == 1 && false) {
+    keysDown = {}
+    for (item in taslist[replayframe]) {
+      let currentlist = taslist[replayframe]
+      keysDown[currentlist[item]] = true
     }
+    console.log(keysDown)
+    replayframe += 1;
+    console.log('looping')
   }
 
+  if (replaystarted == 1) {
+    // for (let item = 0; item < coordslist.length; item++) {
+      let currentlist = coordslist[replayframe]
+      //console.log(coordslist)
+      //console.log(coordslist[replayframe])
+      //console.log(currentlist)
+      if (typeof currentlist[0] !== 'undefined') {
+      console.log(typeof currentlist[0])
+      player.x = currentlist[0]
+      player.y = currentlist[1]
+      levelnum = currentlist[2]
+      }
+      replayframe += 1;
+      
+    // }
+  }
+  
   // var now = new Date();
   // var currenttime = now.getTime();
   currenttime = currenttime;
@@ -342,17 +413,48 @@ function main() {
   // console.log(currenttime);
   // console.log(findtile(player.x,player.y))
 
-  if (levelnum != 8) {
+  if (levelnum != 8 && replaystarted == 0) {
   var totaslist = [];
+  var inputs = [];
   //console.log(keysDown);
   for (var key in keysDown) {
     if (keysDown.hasOwnProperty(key)) {
       totaslist.push(key)
     }
+  coordslist.push([player.x,player.y,levelnum])
+  //console.log(coordslist[coordslist.length-1])
   }
   taslist.push(totaslist);
+  if (32 in keysDown) {
+    inputs.push('⎵')
+  }
+  if (87 in keysDown) {
+    inputs.push('w')
+  }
+  if (38 in keysDown) {
+    inputs.push('^')
+  }
+  if (65 in keysDown) {
+    inputs.push('a')
+  }
+  if (37 in keysDown) {
+    inputs.push('<')
+  }
+  if (68 in keysDown) {
+    inputs.push('d')
+  }
+  if (39 in keysDown) {
+    inputs.push('>')
+  }
+
+  c.fillStyle = 'white'
+  c.fillText(inputs,50,60)
   //console.log(taslist[taslist.length-1])
   }
+  if (levelnum != 8 ) {
+  totalframes += 1;
+  }
+
   
   // var newtime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
 
@@ -377,6 +479,9 @@ window.onload = function() {
   }
   if (levelnum == 6) {
     currentlevel = parse(level6);
+  }
+  if (levelnum == 7) {
+    currentlevel = parse(level7);
   }
   // console.log(levelnum)
   main();
@@ -492,28 +597,49 @@ const level5 =
 1000000000000000111
 1110000000000000001
 1000000000000007111
-1110000000011111111
+1110000000000111111
 `
 const level6 = 
 `111111111111111111
 100000000000000001
 100000000000000081
-100000000000000011
+100000000000100001
+100000010000000001
+101000000000000001
 100000000000000001
-111000000000000001
-100000000000000011
-111000000000000001
+100100000000000001
 100000000000000001
-111000000000000001
-100000000000000011
-111000000000000001
+100010000000000001
 100000000000000001
-111000000000000001
-100000000000000011
-111000000000000001
+100001000000000001
+100000000100000001
+100000100100000001
+101000000000000001
+100000010000001001
+100000010s00000001
+111111111111111111
+`
+const level7 = `
+111111111111111111
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
+100000000000001001
 100000000000000001
 111111111111111111
 `
+
 
 function parse(lvl) {
   const lines = lvl.split("\n");
