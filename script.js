@@ -14,7 +14,29 @@ let portalslist = [];
 
 let taslist = [];
 let coordslist = [];
+let slowedcoordslist = [];
 let printedonce = 0;
+
+let level1start;
+let level1end;
+let level1total;
+let level2start;
+let level2end;
+let level2total;
+let level3start;
+let level3end;
+let level3total;
+let level4start;
+let level4end;
+let level4total;
+let level5start;
+let level5end;
+let level5total;
+let level6start;
+let level6end;
+let level6total;
+
+let fastreplay = 43289;
 
 let totalframes = 0;
 
@@ -24,6 +46,10 @@ let replayframe = 0;
 let frames = 0;
 let times= [];
 let fps;
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 let firstinput = 'hello';
 
@@ -83,6 +109,7 @@ var go = 0;
 // let starttime = start.getTime();
 var music1 = new Audio('music1');
 var music2 = new Audio('music2');
+var music3 = new Audio('music3')
 var jump = new Audio('jump.mp3');
 var yeyey = new Audio('yeyey.mp3');
 
@@ -90,7 +117,7 @@ function playsound(soundfile) {
   var audio = new Audio(soundfile);
   audio.play();
 }
-musnum = Math.round(Math.random());
+musnum = getRandomInt(1,3)
 // if (musnum == 0) {
 //   playsound('music1.mp3')
 // }
@@ -296,11 +323,14 @@ function main() {
   if (levelnum != 0) {
     c.fillStyle = 'white';
     c.font = '10px Arial'
-    if (musnum == 0) {
+    if (musnum == 1) {
       c.fillText('♪ - Haggstrom - C418', 400,50)
     }
-    if (musnum == 1) {
+    if (musnum == 2) {
       c.fillText('♪ - Megalith - Meganeko', 400,50)
+    }
+    if (musnum ==  3) {
+      c.fillText('♪ - Die Mittsommernacht-Fantasie - Yu-Peng Chen', 300,50)
     }
   }
 
@@ -308,26 +338,82 @@ function main() {
   requestAnimationFrame(main);
   if (levelnum == 1) {
     currentlevel = parse(level);
+    var Level1time = new Date()
+    if (typeof level1start != 'number') {
+    level1start = Date.now()
+    }
+   // console.log(level1start)
   }
   if (levelnum == 2) {
     currentlevel = parse(level2);
-    
+    if (typeof level1end != 'number') {
+      level1end = Date.now()
+      level1total = (level1end-level1start)/1000
+      console.log(level1total)
+    }
+    var Level2time = new Date()
+    if (typeof level2start != 'number') {
+    level2start = Date.now()
+    }
   }
   if (levelnum == 3) {
     currentlevel = parse(level3);
+    if (typeof level2end != 'number') {
+      level2end = Date.now()
+      level2total = (level2end-level2start)/1000
+      console.log(level2total)
+    }
+    var Level3time = new Date()
+    if (typeof level3start != 'number') {
+    level3start = Date.now()
+    }
 
   }
   if (levelnum == 4) {
     currentlevel = parse(level4);
+    if (typeof level3end != 'number') {
+      level3end = Date.now()
+      level3total = (level3end-level3start)/1000
+      console.log(level3total)
+    }
+    var Level4time = new Date()
+    if (typeof level4start != 'number') {
+    level4start = Date.now()
+    }
   }
   if (levelnum == 5){
     currentlevel = parse(level5)
+    if (typeof level4end != 'number') {
+      level4end = Date.now()
+      level4total = (level4end-level4start)/1000
+      console.log(level4total)
+    }
+    var Level5time = new Date()
+    if (typeof level5start != 'number') {
+    level5start = Date.now()
+    }
   }
   if (levelnum == 6) {
     currentlevel = parse(level6)
+    if (typeof level5end != 'number') {
+      level5end = Date.now()
+      level5total = (level5end-level5start)/1000
+      console.log(level5total)
+    }
+    var Level6time = new Date()
+    if (typeof level6start != 'number') {
+    level6start = Date.now()
+    }
   }
   if (levelnum == 7) {
     currentlevel = parse(level7);
+  }
+  if (levelnum == 8) {
+    if (typeof level6end != 'number') {
+      level6end = Date.now()
+      level6total = (level6end-level6start)/1000
+      console.log(level6total)
+    }
   }
   if (levelnum != 8) {
   var date = Date.now();
@@ -349,10 +435,19 @@ function main() {
     c.font = '20px Arial';
     c.fillStyle = 'white';
     c.fillText(elapsed/1000,50,50)
-    c.fillText(totalframes, 50, 100)
+    
+    //c.fillText(totalframes, 50, 100)
     if (portalslist.length != 6) {
       c.fillText('cheat detected',50,500)
   }
+  c.font = '12px Arial';
+  c.fillText('Level 1: ' + level1total.toString(),50,65)
+  c.fillText('Level 2: ' + level2total.toString(),50,76)
+  c.fillText('Level 3: ' + level3total.toString(),50,87)
+  c.fillText('Level 4: ' + level4total.toString(),50,98)
+  c.fillText('Level 5: ' + level5total.toString(),50,109)
+  c.fillText('Level 6: ' + level6total.toString(),50,120)
+  
   if (82 in keysDown && replaystarted == 0 && false) { 
     levelnum = 1;
     player.x = 256;
@@ -364,6 +459,14 @@ function main() {
     player.x = 256;
     player.y = 256;
     replaystarted = 1;
+    fastreplay = true;
+  }
+  if (84 in keysDown && replaystarted == 0) {
+    levelnum = 1;
+    player.x = 256;
+    player.y = 256;
+    replaystarted = 1;
+    fastreplay = false;
   }
     
     // if (replaystarted == 1) {
@@ -389,8 +492,30 @@ function main() {
   }
 
   if (replaystarted == 1) {
+    if (fastreplay == true) {
     // for (let item = 0; item < coordslist.length; item++) {
       let currentlist = coordslist[replayframe]
+      //console.log(coordslist)
+      //console.log(coordslist[replayframe])
+      //console.log(currentlist)
+      if (typeof currentlist != 'undefined') {
+      console.log(typeof currentlist[0])
+      player.x = currentlist[0]
+      player.y = currentlist[1]
+      levelnum = currentlist[2]
+      elapsed = currentlist[3]
+      }
+      if (typeof currentlist == 'undefined') {
+        levelnum = 8;
+      }
+      replayframe += 1;
+    }
+    // }
+  }
+  if (replaystarted == 1) {
+    if (fastreplay == false) {
+    // for (let item = 0; item < coordslist.length; item++) {
+      let currentlist = slowedcoordslist[replayframe]
       //console.log(coordslist)
       //console.log(coordslist[replayframe])
       //console.log(currentlist)
@@ -401,8 +526,11 @@ function main() {
       levelnum = currentlist[2]
       elapsed = currentlist[3]
       }
+      if (currentlist.length == 0) {
+        levelnum = 8;
+      }
       replayframe += 1;
-      
+    }
     // }
   }
   if (levelnum != 8) {
@@ -418,6 +546,7 @@ function main() {
   // console.log(findtile(player.x,player.y))
 
   if (levelnum != 8 && replaystarted == 0) {
+  
   var totaslist = [];
   var inputs = [];
   //console.log(keysDown);
@@ -425,10 +554,19 @@ function main() {
     if (keysDown.hasOwnProperty(key)) {
       totaslist.push(key)
     }
-  coordslist.push([player.x,player.y,levelnum,elapsed])
-  //console.log(coordslist[coordslist.length-1])
-  }
+  slowedcoordslist.push([player.x,player.y,levelnum,elapsed])
   taslist.push(totaslist);
+  
+  }
+  
+  //console.log()
+  //console.log(slowedcoordslist[slowedcoordslist.length-1])
+  
+
+  if (levelnum != 8 && replaystarted == 0) {
+    coordslist.push([player.x,player.y,levelnum,elapsed])
+  }
+  
   if (32 in keysDown) {
     inputs.push('⎵')
   }
@@ -523,7 +661,7 @@ const level =
 
 const level2 =
   `11111111111111111
-100000000000000011
+100000000000000001
 100000000000000011
 100000000000000011
 100100000000000011
@@ -687,13 +825,17 @@ function input(x, y) {
         firstinput = 0
       }
       if (music == 0) {
-        musnum = Math.round(Math.random());
-        if (musnum == 0) {
+        musnum = getRandomInt(1,3)
+        if (musnum == 1) {
           playsound('music1.mp3')
           music = 1;
         }
-        if (musnum == 1) {
+        if (musnum == 2) {
           playsound('music2.mp3')
+          music = 1;
+        }
+        if (musnum == 3) {
+          playsound('music3.mp3')
           music = 1;
         }
       }
@@ -714,15 +856,17 @@ function input(x, y) {
         firstinput = 0
       }
       if (music == 0) {
-        musnum = Math.round(Math.random());
-        if (musnum == 0) {
-          if (mvol == 0) {
-            playsound('music1.mp3')
-            music = 1;
-          }
-        }
+        musnum = getRandomInt(1,3)
         if (musnum == 1) {
-          if (mvol == 0) { playsound('music2.mp3') }
+          playsound('music1.mp3')
+          music = 1;
+        }
+        if (musnum == 2) {
+          playsound('music2.mp3')
+          music = 1;
+        }
+        if (musnum == 3) {
+          playsound('music3.mp3')
           music = 1;
         }
       }
@@ -737,13 +881,17 @@ function input(x, y) {
     }
     if (76 in keysUp) {
       if (music == 0) {
-        musnum = Math.round(Math.random());
-        if (musnum == 0) {
-          if (mvol == 0) { playsound('music1.mp3') }
+        musnum = getRandomInt(1,3)
+        if (musnum == 1) {
+          playsound('music1.mp3')
           music = 1;
         }
-        if (musnum == 1) {
-          if (mvol == 0) { playsound('music2.mp3') }
+        if (musnum == 2) {
+          playsound('music2.mp3')
+          music = 1;
+        }
+        if (musnum == 3) {
+          playsound('music3.mp3')
           music = 1;
         }
       }
@@ -765,13 +913,17 @@ function input(x, y) {
         firstinput = 0
       }
       if (music == 0) {
-        musnum = Math.round(Math.random());
-        if (musnum == 0) {
-          if (mvol == 0) { playsound('music1.mp3') }
+        musnum = getRandomInt(1,3)
+        if (musnum == 1) {
+          playsound('music1.mp3')
           music = 1;
         }
-        if (musnum == 1) {
-          if (mvol == 0) { playsound('music2.mp3') }
+        if (musnum == 2) {
+          playsound('music2.mp3')
+          music = 1;
+        }
+        if (musnum == 3) {
+          playsound('music3.mp3')
           music = 1;
         }
       }
