@@ -558,15 +558,14 @@ function main() {
   taslist.push(totaslist);
   
   }
-  
-  //console.log()
-  //console.log(slowedcoordslist[slowedcoordslist.length-1])
-  
 
   if (levelnum != 8 && replaystarted == 0) {
     coordslist.push([player.x,player.y,levelnum,elapsed])
   }
   
+  //console.log()
+  //console.log(slowedcoordslist[slowedcoordslist.length-1])
+
   if (32 in keysDown) {
     inputs.push('⎵')
   }
