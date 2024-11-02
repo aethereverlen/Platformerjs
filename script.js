@@ -493,11 +493,9 @@ function main() {
 
   if (replaystarted == 1) {
     if (fastreplay == true) {
-    // for (let item = 0; item < coordslist.length; item++) {
+
       let currentlist = coordslist[replayframe]
-      //console.log(coordslist)
-      //console.log(coordslist[replayframe])
-      //console.log(currentlist)
+ 
       if (typeof currentlist != 'undefined') {
       console.log(typeof currentlist[0])
       player.x = currentlist[0]
@@ -509,6 +507,10 @@ function main() {
         levelnum = 8;
       }
       replayframe += 1;
+      //console.log(coordslist)
+      //console.log(coordslist[replayframe])
+      //console.log(currentlist)
+    // for (let item = 0; item < coordslist.length; item++) {
     }
     // }
   }
