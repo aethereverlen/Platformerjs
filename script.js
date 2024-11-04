@@ -10,6 +10,8 @@
 //findtile at 605
 const c = document.getElementById("canvas").getContext("2d");
 
+let musnum = 20;
+
 let portalslist = [];
 
 let taslist = [];
@@ -116,11 +118,12 @@ var yeyey = new Audio('yeyey.mp3');
 
 function playsound(soundfile) {
   var audio = new Audio(soundfile);
+  audio.currentTime = 100;
   audio.play();
 }
 
 
-musnum = getRandomInt(1,3)
+//musnum = getRandomInt(1,3)
 // if (musnum == 0) {
 //   playsound('music1.mp3')
 // }
@@ -333,6 +336,9 @@ function main() {
     }
     if (musnum ==  3) {
       c.fillText('♪ - Die Mittsommernacht-Fantasie - Yu-Peng Chen', 300,50)
+    }
+    if (musnum == 4) {
+      c.fillText('♪ - Beats of Water Drops - Yu-Peng Chen', 350,50)
     }
   }
 
@@ -829,7 +835,7 @@ function input(x, y) {
         firstinput = 0
       }
       if (music == 0) {
-        musnum = getRandomInt(1,3)
+        musnum = getRandomInt(1,4)
         if (musnum == 1) {
           playsound('music1.mp3')
           music = 1;
@@ -840,6 +846,10 @@ function input(x, y) {
         }
         if (musnum == 3) {
           playsound('music3.mp3')
+          music = 1;
+        }
+        if (musnum == 4) {
+          playsound('music4.mp3')
           music = 1;
         }
       }
@@ -860,7 +870,7 @@ function input(x, y) {
         firstinput = 0
       }
       if (music == 0) {
-        musnum = getRandomInt(1,3)
+        musnum = getRandomInt(1,4)
         if (musnum == 1) {
           playsound('music1.mp3')
           music = 1;
@@ -871,6 +881,10 @@ function input(x, y) {
         }
         if (musnum == 3) {
           playsound('music3.mp3')
+          music = 1;
+        }
+        if (musnum == 4) {
+          playsound('music4.mp3')
           music = 1;
         }
       }
@@ -885,7 +899,7 @@ function input(x, y) {
     }
     if (76 in keysUp) {
       if (music == 0) {
-        musnum = getRandomInt(1,3)
+        musnum = getRandomInt(1,4)
         if (musnum == 1) {
           playsound('music1.mp3')
           music = 1;
@@ -896,6 +910,10 @@ function input(x, y) {
         }
         if (musnum == 3) {
           playsound('music3.mp3')
+          music = 1;
+        }
+        if (musnum == 4) {
+          playsound('music4.mp3')
           music = 1;
         }
       }
@@ -917,7 +935,7 @@ function input(x, y) {
         firstinput = 0
       }
       if (music == 0) {
-        musnum = getRandomInt(1,3)
+        musnum = getRandomInt(1,4)
         if (musnum == 1) {
           playsound('music1.mp3')
           music = 1;
@@ -928,6 +946,10 @@ function input(x, y) {
         }
         if (musnum == 3) {
           playsound('music3.mp3')
+          music = 1;
+        }
+        if (musnum == 4) {
+          playsound('music4.mp3')
           music = 1;
         }
       }
