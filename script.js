@@ -107,16 +107,19 @@ let cube = 0;
 var go = 0;
 // const start = new Date();
 // let starttime = start.getTime();
-var music1 = new Audio('music1');
-var music2 = new Audio('music2');
-var music3 = new Audio('music3')
+var music1 = new Audio('music1.mp3');
+var music2 = new Audio('music2.mp3');
+var music3 = new Audio('music3.mp3')
 var jump = new Audio('jump.mp3');
 var yeyey = new Audio('yeyey.mp3');
+
 
 function playsound(soundfile) {
   var audio = new Audio(soundfile);
   audio.play();
 }
+
+
 musnum = getRandomInt(1,3)
 // if (musnum == 0) {
 //   playsound('music1.mp3')
@@ -289,7 +292,6 @@ function draw() {
 }
 //draws f
 function main() {
-
   if (firstinput == 0) {
     console.log('hello')
     console.log(keysDown[0])
@@ -604,6 +606,7 @@ function main() {
 }
 //when the function loads, run main, which draws the square
 window.onload = function() {
+ 
   if (levelnum == 1) {
     currentlevel = parse(level);
   }
