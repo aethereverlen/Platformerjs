@@ -12,6 +12,30 @@ const c = document.getElementById("canvas").getContext("2d");
 
 let musnum = 20;
 
+function getLeveltimer(parsedlevel) {
+  if (levelnum == 1) {
+    return Date.now()-level1start;
+  }
+  if (levelnum == 2) {
+    return Date.now()-level2start;
+  }
+  if (levelnum == 3) {
+    return Date.now()-level3start;
+  }
+  if (levelnum == 4) {
+    return Date.now()-level4start;
+  }
+  if (levelnum == 5) {
+    return Date.now()-level5start;
+  }
+  if (levelnum == 6) {
+    return Date.now()-level6start;
+  }
+  else {
+    return;
+  }
+}
+
 let portalslist = [];
 
 let taslist = [];
@@ -118,7 +142,7 @@ var yeyey = new Audio('yeyey.mp3');
 
 function playsound(soundfile) {
   var audio = new Audio(soundfile);
-  audio.currentTime = 100;
+  //audio.currentTime = 100;
   audio.play();
 }
 
@@ -314,7 +338,7 @@ function main() {
   if (levelnum == 8) {
   c.clearRect(0, 0, canvas.width, canvas.height);
   c.font = '100px Arial';
-  c.fillStyle = 'red'
+  c.fillStyle = 'red';
   c.fillText('You Win!',100,300,canvas.width,canvas.height)
   if (printedonce == 0) {
   console.log(taslist);
@@ -423,7 +447,8 @@ function main() {
       console.log(level6total)
     }
   }
-  if (levelnum != 8) {
+  
+  if (levelnum != 8 && replaystarted == 0) { //gui work; has the FPS meter and the timer
   var date = Date.now();
   //if (times[0] <= now-1000) {console.log('should shift');}
   while (times.length > 0 && times[0] <= date - 1000) {times.shift();}
@@ -443,11 +468,13 @@ function main() {
     c.font = '20px Arial';
     c.fillStyle = 'white';
     c.fillText(elapsed/1000,50,50)
+   
     
     //c.fillText(totalframes, 50, 100)
     if (portalslist.length != 6) {
       c.fillText('cheat detected',50,500)
   }
+
   c.font = '12px Arial';
   c.fillText('Level 1: ' + level1total.toString(),50,65)
   c.fillText('Level 2: ' + level2total.toString(),50,76)
@@ -545,6 +572,10 @@ function main() {
   }
   if (levelnum != 8) {
     c.fillText(elapsed / 1000, 50, 50);
+    c.font = '8px Arial';
+    c.fillStyle = '#c0c0c0';
+    c.fillText(getLeveltimer(levelnum)/1000,100,50)
+    
   }
   
   // var now = new Date();
