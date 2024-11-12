@@ -325,6 +325,11 @@ function main() {
     console.log(keysDown)
     var time = new Date();
     starttime = time.getTime();
+    var Level1time = new Date()
+    if (typeof level1start != 'number') {
+    level1start = Date.now()
+    }
+   // console.log(level1start)
     firstinput = 1;
   }
   
@@ -370,11 +375,7 @@ function main() {
   requestAnimationFrame(main);
   if (levelnum == 1) {
     currentlevel = parse(level);
-    var Level1time = new Date()
-    if (typeof level1start != 'number') {
-    level1start = Date.now()
-    }
-   // console.log(level1start)
+    
   }
   if (levelnum == 2) {
     currentlevel = parse(level2);
