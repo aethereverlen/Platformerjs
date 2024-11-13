@@ -167,7 +167,7 @@ function findtile(x, y) {
 }
 //player
 const player = {
-  x: 256,
+  x: 240,
   y: 385,
   width: 32,
   height: 32,
