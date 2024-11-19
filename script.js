@@ -12,6 +12,10 @@ const c = document.getElementById("canvas").getContext("2d");
 
 let musnum = 20;
 
+let adminslow = 0;
+let elapsed = 100000;
+let lastframe;
+
 function getLeveltimer(parsedlevel) {
   if (levelnum == 1) {
     return Date.now()-level1start;
@@ -79,7 +83,7 @@ function getRandomInt(min, max) {
 
 let firstinput = 'hello';
 
-var elapsed;
+//var elapsed;
 var currenttime;
 
 var partition = new Image();
@@ -319,6 +323,11 @@ function draw() {
 }
 //draws f
 function main() {
+  console.log(lastframe-elapsed)
+  //console.log('game is running')
+  //console.log(adminslow)
+  if (adminslow == 0) {
+  lastframe = elapsed;
   if (firstinput == 0) {
     console.log('hello')
     console.log(keysDown[0])
@@ -351,6 +360,7 @@ function main() {
    // console.log(taslist[i])
     //console.log(i)
   }
+  console.log(totalframes)
   printedonce = 1;
   }
   }
@@ -637,10 +647,338 @@ function main() {
   if (levelnum != 8 ) {
   totalframes += 1;
   }
-
-  
+  }
   // var newtime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+  else if ((elapsed-lastframe) > 1000) {
+  console.log('aa')
+  lastframe = elapsed;
+  if (firstinput == 0) {
+    console.log('hello')
+    console.log(keysDown[0])
+    console.log(keysDown)
+    var time = new Date();
+    starttime = time.getTime();
+    var Level1time = new Date()
+    if (typeof level1start != 'number') {
+    level1start = Date.now()
+    }
+   // console.log(level1start)
+    firstinput = 1;
+  }
+  
+  input(player.x, player.y);
+  cubeselect();
+  if (levelnum != 8) {
+  draw();
+  
+  //console.log(levelnum)
+  }
+  if (levelnum == 8) {
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  c.font = '100px Arial';
+  c.fillStyle = 'red';
+  c.fillText('You Win!',100,300,canvas.width,canvas.height)
+  if (printedonce == 0) {
+  console.log(taslist);
+  for (let i = 0; i < taslist.length; i++) {
+   // console.log(taslist[i])
+    //console.log(i)
+  }
+  console.log(totalframes)
+  printedonce = 1;
+  }
+  }
+  if (levelnum != 0) {
+    c.fillStyle = 'white';
+    c.font = '10px Arial'
+    if (musnum == 1) {
+      c.fillText('♪ - Haggstrom - C418', 400,50)
+    }
+    if (musnum == 2) {
+      c.fillText('♪ - Megalith - Meganeko', 400,50)
+    }
+    if (musnum ==  3) {
+      c.fillText('♪ - Die Mittsommernacht-Fantasie - Yu-Peng Chen', 300,50)
+    }
+    if (musnum == 4) {
+      c.fillText('♪ - Beats of Water Drops - Yu-Peng Chen', 350,50)
+    }
+  }
 
+  gravity(player);
+  requestAnimationFrame(main);
+  if (levelnum == 1) {
+    currentlevel = parse(level);
+    
+  }
+  if (levelnum == 2) {
+    currentlevel = parse(level2);
+    if (typeof level1end != 'number') {
+      level1end = Date.now()
+      level1total = (level1end-level1start)/1000
+      console.log(level1total)
+    }
+    var Level2time = new Date()
+    if (typeof level2start != 'number') {
+    level2start = Date.now()
+    }
+  }
+  if (levelnum == 3) {
+    currentlevel = parse(level3);
+    if (typeof level2end != 'number') {
+      level2end = Date.now()
+      level2total = (level2end-level2start)/1000
+      console.log(level2total)
+    }
+    var Level3time = new Date()
+    if (typeof level3start != 'number') {
+    level3start = Date.now()
+    }
+
+  }
+  if (levelnum == 4) {
+    currentlevel = parse(level4);
+    if (typeof level3end != 'number') {
+      level3end = Date.now()
+      level3total = (level3end-level3start)/1000
+      console.log(level3total)
+    }
+    var Level4time = new Date()
+    if (typeof level4start != 'number') {
+    level4start = Date.now()
+    }
+  }
+  if (levelnum == 5){
+    currentlevel = parse(level5)
+    if (typeof level4end != 'number') {
+      level4end = Date.now()
+      level4total = (level4end-level4start)/1000
+      console.log(level4total)
+    }
+    var Level5time = new Date()
+    if (typeof level5start != 'number') {
+    level5start = Date.now()
+    }
+  }
+  if (levelnum == 6) {
+    currentlevel = parse(level6)
+    if (typeof level5end != 'number') {
+      level5end = Date.now()
+      level5total = (level5end-level5start)/1000
+      console.log(level5total)
+    }
+    var Level6time = new Date()
+    if (typeof level6start != 'number') {
+    level6start = Date.now()
+    }
+  }
+  if (levelnum == 7) {
+    currentlevel = parse(level7);
+  }
+  if (levelnum == 8) {
+    if (typeof level6end != 'number') {
+      level6end = Date.now()
+      level6total = (level6end-level6start)/1000
+      console.log(level6total)
+    }
+  }
+  
+  if (levelnum != 8 && replaystarted == 0) { //gui work; has the FPS meter and the timer
+  var date = Date.now();
+  //if (times[0] <= now-1000) {console.log('should shift');}
+  while (times.length > 0 && times[0] <= date - 1000) {times.shift();}
+  times.push(date);
+
+  fps = times.length;	
+  c.fillText(fps,250,50);
+
+  now = new Date();
+  currenttime = now.getTime();
+  c.font = "10px Arial";
+  elapsed = currenttime - starttime;
+  
+  }
+
+  if (levelnum == 8) {
+    c.font = '20px Arial';
+    c.fillStyle = 'white';
+    c.fillText(elapsed/1000,50,50)
+   
+    
+    //c.fillText(totalframes, 50, 100)
+    if (portalslist.length != 6) {
+      c.fillText('cheat detected',50,500)
+  }
+
+  c.font = '12px Arial';
+  c.fillText('Level 1: ' + level1total.toString(),50,65)
+  c.fillText('Level 2: ' + level2total.toString(),50,76)
+  c.fillText('Level 3: ' + level3total.toString(),50,87)
+  c.fillText('Level 4: ' + level4total.toString(),50,98)
+  c.fillText('Level 5: ' + level5total.toString(),50,109)
+  c.fillText('Level 6: ' + level6total.toString(),50,120)
+  
+  if (82 in keysDown && replaystarted == 0 && false) { 
+    levelnum = 1;
+    player.x = 256;
+    player.y = 256;
+    replaystarted = 1;
+  }
+  if (82 in keysDown && replaystarted == 0) {
+    levelnum = 1;
+    player.x = 256;
+    player.y = 256;
+    replaystarted = 1;
+    fastreplay = true;
+  }
+  if (84 in keysDown && replaystarted == 0) {
+    levelnum = 1;
+    player.x = 256;
+    player.y = 256;
+    replaystarted = 1;
+    fastreplay = false;
+  }
+    
+    // if (replaystarted == 1) {
+    //   keysDown = {}
+    //   for (item in taslist[replayframe]) {
+    //     let currentlist = taslist[replayframe]
+    //     keysDown[item] = true
+    //   }
+    //   console.log(keysDown)
+    //   replayframe += 1;
+    // }
+    
+  }
+  if (replaystarted == 1 && false) {
+    keysDown = {}
+    for (item in taslist[replayframe]) {
+      let currentlist = taslist[replayframe]
+      keysDown[currentlist[item]] = true
+    }
+    console.log(keysDown)
+    replayframe += 1;
+    console.log('looping')
+  }
+
+  if (replaystarted == 1) {
+    if (fastreplay == true) {
+
+      let currentlist = coordslist[replayframe]
+ 
+      if (typeof currentlist != 'undefined') {
+      console.log(typeof currentlist[0])
+      player.x = currentlist[0]
+      player.y = currentlist[1]
+      levelnum = currentlist[2]
+      elapsed = currentlist[3]
+      }
+      if (typeof currentlist == 'undefined') {
+        levelnum = 8;
+      }
+      replayframe += 1;
+      //console.log(coordslist)
+      //console.log(coordslist[replayframe])
+      //console.log(currentlist)
+    // for (let item = 0; item < coordslist.length; item++) {
+    }
+    // }
+  }
+  if (replaystarted == 1) {
+    if (fastreplay == false) {
+    // for (let item = 0; item < coordslist.length; item++) {
+      let currentlist = slowedcoordslist[replayframe]
+      //console.log(coordslist)
+      //console.log(coordslist[replayframe])
+      //console.log(currentlist)
+      if (currentlist.length != 0) {
+      console.log(typeof currentlist[0])
+      player.x = currentlist[0]
+      player.y = currentlist[1]
+      levelnum = currentlist[2]
+      elapsed = currentlist[3]
+      }
+      if (currentlist.length == 0) {
+        levelnum = 8;
+      }
+      replayframe += 1;
+    }
+    // }
+  }
+  if (levelnum != 8) {
+    c.fillText(elapsed / 1000, 50, 50);
+    c.font = '8px Arial';
+    c.fillStyle = '#c0c0c0';
+    c.fillText(getLeveltimer(levelnum)/1000,100,50)
+    
+  }
+  
+  // var now = new Date();
+  // var currenttime = now.getTime();
+ // currenttime = currenttime;
+  //elapsed = elapsed;
+ // console.log(elapsed);
+  // console.log(currenttime);
+  // console.log(findtile(player.x,player.y))
+
+  if (levelnum != 8 && replaystarted == 0) {
+  
+  var totaslist = [];
+  var inputs = [];
+  //console.log(keysDown);
+  for (var key in keysDown) {
+    if (keysDown.hasOwnProperty(key)) {
+      totaslist.push(key)
+    }
+  slowedcoordslist.push([player.x,player.y,levelnum,elapsed])
+  taslist.push(totaslist);
+  
+  }
+
+  if (levelnum != 8 && replaystarted == 0) {
+    coordslist.push([player.x,player.y,levelnum,elapsed])
+  }
+  
+  //console.log()
+  //console.log(slowedcoordslist[slowedcoordslist.length-1])
+
+  if (32 in keysDown) {
+    inputs.push('⎵')
+  }
+  if (87 in keysDown) {
+    inputs.push('w')
+  }
+  if (38 in keysDown) {
+    inputs.push('^')
+  }
+  if (65 in keysDown) {
+    inputs.push('a')
+  }
+  if (37 in keysDown) {
+    inputs.push('<')
+  }
+  if (68 in keysDown) {
+    inputs.push('d')
+  }
+  if (39 in keysDown) {
+    inputs.push('>')
+  }
+
+  c.fillStyle = 'white'
+  c.fillText(inputs,50,60)
+  //console.log(taslist[taslist.length-1])
+  }
+  if (levelnum != 8 ) {
+  totalframes += 1;
+  }
+  }
+  else {
+    console.log('Waiting');
+    now = new Date();
+    currenttime = now.getTime();
+    //c.font = "10px Arial";
+    elapsed = currenttime - starttime;
+  };
 }
 //when the function loads, run main, which draws the square
 window.onload = function() {
