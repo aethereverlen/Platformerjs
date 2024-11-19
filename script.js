@@ -979,6 +979,7 @@ function main() {
     //c.font = "10px Arial";
     elapsed = currenttime - starttime;
   };
+  console.log(elapsed-lastframe)
 }
 //when the function loads, run main, which draws the square
 window.onload = function() {
