@@ -76,6 +76,7 @@ let replayframe = 0;
 let frames = 0;
 let times= [];
 let fps;
+let avgfps = [];
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -459,15 +460,17 @@ function main() {
     }
   }
   
-  if (levelnum != 8 && replaystarted == 0) { //gui work; has the FPS meter and the timer
+  if (levelnum != 8 && replaystarted == 0 && firstinput == 1) { //gui work; has the FPS meter and the timer
   var date = Date.now();
   //if (times[0] <= now-1000) {console.log('should shift');}
   while (times.length > 0 && times[0] <= date - 1000) {times.shift();}
   times.push(date);
 
   fps = times.length;	
+  avgfps.push(fps);
   c.fillText(fps,250,50);
-
+  //c.fillText(avgfps[avgfps.length-1],250,60)
+  
   now = new Date();
   currenttime = now.getTime();
   c.font = "10px Arial";
@@ -478,8 +481,9 @@ function main() {
   if (levelnum == 8) {
     c.font = '20px Arial';
     c.fillStyle = 'white';
-    c.fillText(elapsed/1000,50,50)
-   
+   // c.fillText((avgfps.length/60).toPrecision(6),50,50)
+   c.fillText(elapsed/1000,50,50)
+    console.log(elapsed/1000)
     
     //c.fillText(totalframes, 50, 100)
     if (portalslist.length != 6) {
@@ -581,7 +585,7 @@ function main() {
     }
     // }
   }
-  if (levelnum != 8) {
+  if (levelnum != 8 && firstinput == 1) {
     c.fillText(elapsed / 1000, 50, 50);
     c.font = '8px Arial';
     c.fillStyle = '#c0c0c0';
