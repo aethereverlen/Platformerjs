@@ -1267,10 +1267,10 @@ function input(x, y) {
       //   if (findtile((player.x-player.speed)+1,player.y+16) !== "2"){
       if (findtile((player.x - player.speed) + 1, player.y + 16) !== "1") {
         if (32 in keysDown) {
-          if (findtile(player.x, player.y +32) !== "1" && findtile(player.x+32, player.y +32) !== "1") {
+        //  if (findtile(player.x, player.y +32) !== "1" && findtile(player.x+32, player.y +32) !== "1") {
           player.x -= 6;
-          }
-          else{player.x-=3}
+         // }
+         // else{player.x-=3}
         }
         else {
           player.x -= 3;
@@ -1304,10 +1304,10 @@ function input(x, y) {
       }
       if (findtile((player.x + player.width), player.y) !== "1") {
         if (32 in keysDown) {
-          if (findtile(player.x, player.y +32) !== "1" && findtile(player.x+32, player.y +32) !== "1") {
+         // if (findtile(player.x, player.y +32) !== "1" && findtile(player.x+32, player.y +32) !== "1") {
           player.x += 6;
-          }
-          else {player.x+=3}
+         // }
+         // else {player.x+=3}
         }
         else {
           player.x += 3;
