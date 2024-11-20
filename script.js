@@ -280,10 +280,10 @@ function draw() {
         c.fillRect(col * 32, row * 32, 32, 32);
       }
       //blocks
-      if (currentlevel[row][col] === 'b') {
-        c.fillStyle = mutedwhite;
-        c.fillRect(col * 32, row * 32, 32, 32);
-      }
+      // if (currentlevel[row][col] === 'b') {
+      //   c.fillStyle = mutedwhite;
+      //   c.fillRect(col * 32, row * 32, 32, 32);
+      //}
       //portal
       if (currentlevel[row][col] === '2') {
         c.drawImage(portal, col * 32, row * 32, 32, 32)
@@ -318,13 +318,20 @@ function draw() {
       if (currentlevel[row][col] === '8') {
         c.drawImage(portal, col * 32, row * 32, 32, 32);
       }
+      if (currentlevel[row][col] === '8') {
+        c.drawImage(portal, col * 32, row * 32, 32, 32);
+      }
+      if (currentlevel[row][col] === 'b') {
+        c.fillStyle='#c91010'
+        c.fillRect(col*32,row*32,32,32);
+      }
     }
   }
 
 }
 //draws f
 function main() {
-  console.log(lastframe-elapsed)
+  //console.log(lastframe-elapsed)
   //console.log('game is running')
   //console.log(adminslow)
   if (adminslow == 0) {
@@ -483,10 +490,10 @@ function main() {
     c.fillStyle = 'white';
    // c.fillText((avgfps.length/60).toPrecision(6),50,50)
    c.fillText(elapsed/1000,50,50)
-    console.log(elapsed/1000)
+    //console.log(elapsed/1000)
     
     //c.fillText(totalframes, 50, 100)
-    if (portalslist.length != 6) {
+    if (portalslist.length != 7) {
       c.fillText('cheat detected',50,500)
   }
 
@@ -983,7 +990,9 @@ function main() {
     //c.font = "10px Arial";
     elapsed = currenttime - starttime;
   };
-  console.log(elapsed-lastframe)
+  //console.log(elapsed-lastframe)
+  console.log(portalslist)
+  console.log(portalslist)
 }
 //when the function loads, run main, which draws the square
 window.onload = function() {
@@ -1037,7 +1046,7 @@ const level =
 11000000000111110111
 10000000000011000111
 11110000000000000111
-1s000000011111110111
+1sb00000011111110111
 11111000111100000111
 10000000000000000111
 10001100001000000111
@@ -1132,7 +1141,7 @@ const level5 =
 const level6 = 
 `111111111111111111
 100000000000000001
-100000000000000081
+100000000000000091
 100000000000100001
 100000010000000001
 101000000000000001
@@ -1152,24 +1161,24 @@ const level6 =
 const level7 = 
 `11111111111111111111
 10000000000000sssss1
-10001111111000400001
+10001111111000b00001
 10010000000011100111
 10010010000000000001
 10010010000000000001
-10100010000000000001
+10000010000000000001
 10000101100000000001
-10000100010000000011
-1001s0000ssssssssss1
-1100s000011111111111
-10000400000000000001
+10000100110000000011
+100110000ssssssssss1
+11001000011111111111
+10000b00000000000001
 101000s0000000000001
 10010011110000000801
-10100011004000001111
+10100011000000001111
 11100101110000000001
 11000001ss0000000001
 11000001110000000001
 11000004000000000001
-11111111111111111111
+11111111111000000001
 `
 
 // const level7 =
@@ -1444,10 +1453,17 @@ function gravity(obj) {
     portalslist.push('5');
   }
   if (findtile(obj.x, obj.y) === "8" || findtile(obj.x + 32, obj.y) === '8') {
-    if (portalslist.length == 5) {
+    if (portalslist.length == 6) {
     portalslist.push('6');
     }
     levelnum = 8;
+ //   console.log(levelnum)
+  }
+  if (findtile(obj.x, obj.y) === "9" || findtile(obj.x + 32, obj.y) === '9') {
+    if (portalslist.length == 5) {
+    portalslist.push('7');
+    }
+    levelnum = 7;
  //   console.log(levelnum)
   }
 
